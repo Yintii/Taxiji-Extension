@@ -10,6 +10,7 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.6",
     "plasmo": "0.84.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -29,7 +30,9 @@
       "https://*/*"
     ],
     "permissions": [
-      "identity"
+      "identity",
+      "https://nameless-thicket-51908-7757c6d88739.herokuapp.com/",
+      "cookies"
     ]
   }
 }
