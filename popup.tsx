@@ -4,18 +4,21 @@ import Main from "./components/Main"
 
 function IndexPopup() {
 
-  const [user, setUser] = useState(null);
-  const [wallets, setWallets] = useState(null);
-  const [loading, setLoading] = useState(false);
-
+  const [wallet, setWallet] = useState('');
 
   const getUserIfLoggedIn = async () => {
     chrome.cookies.get({ url: "https://nameless-thicket-51908-7757c6d88739.herokuapp.com/", name: "wallets" }, (cookie) => {
       if (cookie) {
         //decode the cookie
         const decodedCookie = decodeURIComponent(cookie.value);
-        console.log("Cookie: ", JSON.parse(decodedCookie));
-        setWallets(JSON.parse(decodedCookie));
+        const data = JSON.parse(decodedCookie);
+        console.log("Cookie: ", data);
+        console.log('Type of cookie: ', typeof data);
+        console.log('First entry: ', data[0].wallet_address);
+        //get the wallet address out of the cookie
+        const wallet = data[0].wallet_address;
+        setWallet(wallet);
+        
       }else{
         console.log("No cookie found");
       }
@@ -29,7 +32,7 @@ function IndexPopup() {
 
   return (
     <div>
-      { wallets ? <Main /> : <Login /> }
+      { wallet ? <Main wallet={wallet} /> : <Login /> }
     </div>
   )
 }
